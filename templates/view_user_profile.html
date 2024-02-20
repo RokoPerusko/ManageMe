@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <p><strong>Username:</strong> {{ profile.user.username }}</p>
+    <p><strong>Bio:</strong> {{ profile.bio }}</p>
+    
+    <h2>Daily Success</h2>
+    <p>Today's completed tasks percentage: {{ daily_success_percentage|default:"No tasks today" }}%</p>
+    <h3>Today's Tasks</h3>
+    {% if today_tasks %}
+    <ul>
+        {% for task in today_tasks %}
+            <li>{{ task.name }} - {{ task.completed|yesno:"Completed,Not Completed" }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No tasks for today.</p>
+    {% endif %}
+    <a href="{% url 'app:user_profile_week' %}" class="btn btn-secondary">Weekly Success</a>    
+    <a href="{% url 'app:edit_user_profile' %}">Edit Bio</a>
+    <a href="{% url 'app:homepage' %}" class="btn btn-primary">Home</a>
+</body>
+</html>

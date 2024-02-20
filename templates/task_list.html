@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Lista zadataka</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Lista zadataka</h2>
+        <ul>
+            {% for task in tasks %}
+                <li>
+                    {{ task.name }} - {{ task.date }} - {{ task.time }} - {{ task.color }} - {{ task.description }}
+                    <!-- Edit link -->
+                    <a href="{% url 'app:edit_task' task.id %}">Edit</a>
+                    <!-- Delete form -->
+                    <form action="{% url 'app:delete_task' task.id %}" method="post" style="display: inline;" onsubmit="return confirm('Are you sure?');">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <form method="GET" action="{% url 'app:task_list' %}">
+            <div class="date-picker">
+                <label for="filter-date">Filtriraj po datumu:</label>
+                <input type="date" id="filter-date" name="filter-date" value="{{ filter_date }}">
+                <button type="submit">Filtriraj</button>
+            </div>
+        </form>
+        <a href="{% url 'app:add_task' %}" class="btn btn-primary">Dodaj Zadatak</a>
+    </div>
+    <a href="{% url 'app:homepage' %}" class="btn btn-primary">Home</a>
+</body>
+</html>

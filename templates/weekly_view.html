@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tjedni Uspjeh</title>
+</head>
+<body>
+    <h1>Tjedni Uspjeh</h1>
+    <p><strong>Razdoblje:</strong> Od {{ week_start }} do {{ week_end }}</p>
+    <p><strong>Ukupni tjedni uspjeh:</strong> {{ weekly_success }}%</p>
+
+    <h2>Zadaci u zadnjih 7 dana</h2>
+    {% if weekly_tasks %}
+    <ul>
+        {% for task in weekly_tasks %}
+            <li>{{ task.date }}: {{ task.name }} - {{ task.completed|yesno:"Izvršen,Nije izvršen" }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Nema zadataka u zadnjih 7 dana.</p>
+    {% endif %}
+
+    <a href="{% url 'app:view_user_profile' %}">Natrag na profil</a>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Uredi Unos u Dnevnik</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Uredi Unos u Dnevnik</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Spremi Promjene</button>
+        </form>
+    </div>
+</body>
+</html>

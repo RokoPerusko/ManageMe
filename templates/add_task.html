@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Dodaj Zadatak</title>
+</head>
+<body>
+    <h2>Dodaj novi zadatak</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Spremi Zadatak</button>
+    </form>
+</body>
+</html>

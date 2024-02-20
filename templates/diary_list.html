@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unosi u Dnevniku</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Unosi u Dnevniku</h2>
+        <a href="{% url 'app:add_diary_entry' %}" class="btn btn-primary">Dodaj Novi Unos</a>
+        
+        <!-- Date filter form -->
+        <form method="GET" action="{% url 'app:diary_list' %}">
+            <div class="date-picker">
+                <label for="filter-date">Filtriraj po datumu:</label>
+                <input type="date" id="filter-date" name="filter-date" value="{{ filter_date }}">
+                <button type="submit">Filtriraj</button>
+            </div>
+        </form>
+
+        <div>
+            {% for entry in diary_entries %}
+            <div>
+                <h3>{{ entry.title }} ({{ entry.date }})</h3>
+                <p>{{ entry.description }}</p>
+                <p>Izvršeni zadaci:</p>
+                <ul>
+                    {% for task in entry.completed_tasks_list %}
+                        <li>{{ task.name }} - {{ task.color }}</li>
+                    {% endfor %}
+                </ul>
+                <!-- Edit link -->
+                <a href="{% url 'app:edit_diary_entry' entry.id %}">Edit</a>
+                <!-- Delete form -->
+                <form action="{% url 'app:delete_diary_entry' entry.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" onclick="return confirm('Are you sure?');" />
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <a href="{% url 'app:homepage' %}" class="btn btn-primary">Home</a>
+</body>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dodaj Unos u Dnevnik</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Dodaj Unos u Dnevnik</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Spremi Unos</button>
+        </form>
+    </div>
+</body>
+</html>

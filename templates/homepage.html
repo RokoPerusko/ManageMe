@@ -1,0 +1,21 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <title>ManageMe</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Home</h1>
+    
+      <a href="{% url 'app:task_list' %}" class="btn">Prikaži listu zadataka</a>
+      <a href="{% url 'app:diary_list' %}" class="btn">Dnevnik</a>
+      <a href="{% url 'app:view_user_profile' %}" class="btn">Profil</a>
+      <a href="{% url 'app:logout' %}" class="btn btn-logout">Odjava</a>
+    </div>
+  </div>
+</body>
+</html>
